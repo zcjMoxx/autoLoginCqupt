@@ -1,0 +1,15 @@
+# 配置文件
+config.txt
+# 日志文件
+network_log.txt
+# PyInstaller打包产物
+build/
+dist/
+*.spec
+# Python缓存
+__pycache__/
+*.pyc
+# Windows临时文件
+*.tmp
+*.log
+.DS_Store
