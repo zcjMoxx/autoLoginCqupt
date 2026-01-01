@@ -942,13 +942,23 @@ class SimpleCampusNetworkGUI:
             self._send_notification("IP失败", "无法获取IP!", "fail")
             self.reconnect_fail_count += 1
             return False
+        
+        # 定义移动端UA模式列表
+        mobile_ua_modes = ["android-chrome", "ios-safari", "random"]
+        # 判断当前UA模式类型（random模式也按移动端处理）
+        if config["ua_mode"] in mobile_ua_modes:
+            account_prefix = "1"  # 移动端前缀为1
+            logging.info(f"【UA类型】移动端 - 使用前缀1 | 模式: {config['ua_mode']}")
+        else:
+            account_prefix = "0"  # PC端前缀为0
+            logging.info(f"【UA类型】PC端 - 使用前缀0 | 模式: {config['ua_mode']}")
 
         # 构建登录URL
         login_url = (
             f"{PORTAL}?c=Portal&a=login&callback=dr1003&login_method=1"
             f"&wlan_user_ip={ipv4}"
             f"&wlan_user_mac=50ebf6ca3dbc"
-            f"&user_account=,0,{account}@{carrier}"
+            f"&user_account=,{account_prefix},{account}@{carrier}"
             f"&user_password={password}"
             f"&jsVersion=3.3.3&v=9635"
         )
